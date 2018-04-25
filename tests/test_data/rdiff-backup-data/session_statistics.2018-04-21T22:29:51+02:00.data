@@ -1,0 +1,18 @@
+StartTime 1524342591.00 (Sat Apr 21 22:29:51 2018)
+EndTime 1524342592.00 (Sat Apr 21 22:29:51 2018)
+ElapsedTime 1.00 (1.00 seconds)
+SourceFiles 3
+SourceFileSize 38 (38 bytes)
+MirrorFiles 2
+MirrorFileSize 18 (18 bytes)
+NewFiles 1
+NewFileSize 0 (0 bytes)
+DeletedFiles 0
+DeletedFileSize 0 (0 bytes)
+ChangedFiles 2
+ChangedSourceSize 38 (38 bytes)
+ChangedMirrorSize 18 (18 bytes)
+IncrementFiles 3
+IncrementFileSize 84 (84 bytes)
+TotalDestinationSizeChange 104 (104 bytes)
+Errors 0
