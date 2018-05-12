@@ -1,5 +1,5 @@
-#! /usr/bin/env python2
 # -*- coding: utf-8 -*-
-#
-# Interpreter version: python 2.7
-#
+from .trimmer import main
+
+from .rdiff_api import RdiffAPI
+from .rdiff_api import Increment
