@@ -10,7 +10,7 @@ from rdiff_api import RdiffAPI
 from rdiff_api import Increment
 
 
-def remove_even(rsync_dir, out_dir):
+def remove_even(rsync_dir, out_dir, disable_compression=False):
     rsync = RdiffAPI(rsync_dir)
 
     odd_increments = [
@@ -18,10 +18,15 @@ def remove_even(rsync_dir, out_dir):
         if ((cnt + 1) % 2) != 0
     ]
 
-    rsync.restore_into(out_dir, odd_increments)
+    rsync.restore_into(
+        out_dir,
+        odd_increments,
+        disable_compression=disable_compression
+    )
 
 
-def keep_one_for_each_month(rsync_dir, out_dir, all_from_last_3_months=True):
+def keep_one_for_each_month(rsync_dir, out_dir, all_from_last_3_months=True,
+                            disable_compression=False):
     rsync = RdiffAPI(rsync_dir)
 
     def get_month_date(increment):
@@ -47,7 +52,11 @@ def keep_one_for_each_month(rsync_dir, out_dir, all_from_last_3_months=True):
         if len(all_months) >= 3:
             last_from_each_month.update(month_tracker[all_months[-3]])
 
-    rsync.restore_into(out_dir, sorted(last_from_each_month))
+    rsync.restore_into(
+        out_dir,
+        sorted(last_from_each_month),
+        disable_compression=disable_compression
+    )
 
 
 def _check_multiple_parameters(args):
@@ -83,9 +92,13 @@ def main(args):
         args.out_dir = args.rsync_dir + "_trimmed"
 
     if args.remove_even:
-        remove_even(args.rsync_dir, args.out_dir)
+        remove_even(args.rsync_dir, args.out_dir, args.disable_compression)
     elif args.each_month:
-        keep_one_for_each_month(args.rsync_dir, args.out_dir)
+        keep_one_for_each_month(
+            args.rsync_dir,
+            args.out_dir,
+            args.disable_compression
+        )
     elif args.list:
         with open(args.list) as f:
             increments_to_keep = [
@@ -93,7 +106,12 @@ def main(args):
                 for x in f.read().splitlines()
             ]
 
-        RdiffAPI(args.rsync_dir).restore_into(args.out_dir, increments_to_keep)
+        rdiff = RdiffAPI(args.rsync_dir)
+        rdiff.restore_into(
+            args.out_dir,
+            increments_to_keep,
+            disable_compression=args.disable_compression
+        )
     else:
         sys.stderr.write("No action selected. Use --help for list.\n")
         sys.exit(1)

@@ -17,12 +17,14 @@ class Increment(object):
 
 
 class RdiffAPI(object):
-    def __init__(self, rsync_dir, tmp_dir=None):
+    def __init__(self, rsync_dir, tmp_dir=None, disable_compression=False):
         self.rsync_dir = rsync_dir
 
         self._tmp_dir = tmp_dir
         if self._tmp_dir is None:
             self._tmp_dir = mkdtemp()
+
+        self._disable_compression = disable_compression
 
         self._options = []
 
@@ -40,13 +42,17 @@ class RdiffAPI(object):
         if timestamp != 0:
             options.extend(("--current-time", timestamp))
 
+        if self._disable_compression:
+            options.append("--no-compression")
+
         options.append(from_dir)
         options.append(self.rsync_dir)
 
         sh.rdiff_backup(*options)
 
-    def restore_into(self, out_dir, increments_to_keep):
-        out_rsync = RdiffAPI(out_dir)
+    def restore_into(self, out_dir, increments_to_keep,
+                     disable_compression=False):
+        out_rsync = RdiffAPI(out_dir, disable_compression=disable_compression)
         for increment in sorted(increments_to_keep, key=lambda x: x.timestamp):
             rmtree(self._tmp_dir)
             os.mkdir(self._tmp_dir)
