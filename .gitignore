@@ -48,3 +48,5 @@ boilerplate/
 # Pytest
 .pytest_cache
 .cache
+
+tests/test_data/rdiff-backup-data/restore.log
