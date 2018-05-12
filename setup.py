@@ -17,14 +17,14 @@ LONG_DESCRIPTION = "\n\n".join([
 
 
 setup(
-    name='rsync_trimmer',
+    name='rdiff_trimmer',
     version=get_version(CHANGELOG),
     py_modules=['rsync_trimmer'],
 
     author='Bystroushaak',
     author_email='bystrousak@kitakitsune.org',
 
-    url='https://github.com/Bystroushaak/rsync_trimmer',
+    url='https://github.com/Bystroushaak/rdiff_trimmer',
     license='MIT',
     description='Get rid of the old rdiff-backup increments from your backup.',
 
@@ -41,6 +41,10 @@ setup(
 
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
+    ],
+
+    scripts=[
+        'bin/rdiff_trimmer.py',
     ],
 
     extras_require={
