@@ -47,3 +47,4 @@ boilerplate/
 
 # Pytest
 .pytest_cache
+.cache
