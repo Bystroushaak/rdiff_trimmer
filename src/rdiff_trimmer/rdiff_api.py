@@ -1,8 +1,4 @@
-#! /usr/bin/env python2
 # -*- coding: utf-8 -*-
-#
-# Interpreter version: python 2.7
-#
 import os
 from shutil import rmtree
 from tempfile import mkdtemp
