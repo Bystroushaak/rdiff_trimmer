@@ -1,6 +1,7 @@
 include README.rst
-include CHANGELOG.rst
+include CHANGES.rst
 include LICENSE.txt
+include requirements.txt
 
 recursive-exclude tests *
 recursive-exclude * __pycache__
@@ -9,3 +10,4 @@ recursive-exclude * *.py[co]
 recursive-exclude docs *.rst *.py Makefile make.bat
 
 recursive-include bin *
+recursive-include docs *
