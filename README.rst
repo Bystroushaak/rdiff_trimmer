@@ -200,6 +200,29 @@ Real example
         increments.2018-03-19T19:53:36+01:00.dir   Mon Mar 19 19:53:36 2018
         increments.2018-04-18T22:01:28+02:00.dir   Wed Apr 18 22:01:28 2018
     Current mirror: Fri May 11 23:49:17 2018
+    bystrousak:/media/bystrousak/Internal/Backup/delta,1$ rdiff_trimmer -d -o xlit_delta
+    Restoring 1477776003
+    Restoring 1479844955
+    Restoring 1482945913
+    Restoring 1485899040
+    Restoring 1488248732
+    Restoring 1490657083
+    Restoring 1493394493
+    Restoring 1495801622
+    Restoring 1498232824
+    Restoring 1501109734
+    Restoring 1503876897
+    Restoring 1506789900
+    Restoring 1509326541
+    Restoring 1511131523
+    Restoring 1514631366
+    Restoring 1517350757
+    Restoring 1519314506
+    Restoring 1521282706
+    Restoring 1521383724
+    Restoring 1521485616
+    Restoring 1524081688
+    Restoring 1526075357
     bystrousak:/media/bystrousak/Internal/Backup/delta,0$ rdiff-backup -l xlit_delta_trimmed/
     Found 21 increments:
         increments.2016-10-29T23:20:03+02:00.dir   Sat Oct 29 23:20:03 2016
