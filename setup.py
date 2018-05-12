@@ -44,7 +44,7 @@ setup(
     ],
 
     scripts=[
-        'bin/rdiff_trimmer.py',
+        'bin/rdiff_trimmer',
     ],
 
     extras_require={
