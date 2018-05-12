@@ -89,7 +89,7 @@ def main(args):
         sys.exit(1)
 
     if args.out_dir is None:
-        args.out_dir = args.rsync_dir + "_trimmed"
+        args.out_dir = os.path.abspath(args.rsync_dir) + "_trimmed"
 
     if args.remove_even:
         remove_even(args.rsync_dir, args.out_dir, args.disable_compression)
