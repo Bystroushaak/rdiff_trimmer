@@ -5,6 +5,8 @@ import sys
 import os.path
 import argparse
 
+# don't try to import rdiff_trimmer as a script, but a module
+sys.path = [x for x in sys.path if x != "." and x != os.path.dirname(__file__)]
 from rdiff_trimmer.rdiff_api import RdiffAPI
 
 
