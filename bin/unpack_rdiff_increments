@@ -1,0 +1,45 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+import os
+import sys
+import os.path
+import argparse
+
+from rdiff_trimmer.rdiff_api import RdiffAPI
+
+
+def unpack_into(rdiff_path, out_dir_path):
+    if not os.path.exists(out_dir_path):
+        os.mkdir(out_dir_path)
+
+    api = RdiffAPI(rdiff_path)
+    for inc in api.yield_increments():
+        inc_path = os.path.join(out_dir_path, str(inc.timestamp))
+        if not os.path.exists(inc_path):
+            os.mkdir(inc_path)
+
+        api.restore(inc_path, inc.timestamp)
+        yield inc.timestamp, inc_path
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-o",
+        "--out",
+        required=True,
+        help="Output directory where the increments will be unpacked."
+    )
+    parser.add_argument(
+        "in_path",
+        metavar="RDIFF_PATH",
+        help="Path to the directory with rdiff increments."
+    )
+    args = parser.parse_args()
+
+    if not os.path.exists(args.in_path):
+        sys.stderr.write("`%s` doesn't exists!\n")
+        sys.exit(1)
+
+    for timestamp, out_path in unpack_into(args.in_path, args.out):
+        print out_path, "unpacked"

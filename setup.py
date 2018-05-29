@@ -45,6 +45,7 @@ setup(
 
     scripts=[
         'bin/rdiff_trimmer',
+        'bin/unpack_rdiff_increments',
     ],
 
     extras_require={

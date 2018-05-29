@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.3.0
+-----
+    - Added script `unpack_rdiff_increments`.
+
 0.2.1
 -----
     - Fixed bug in bad parsing of the output path with / at the end.
