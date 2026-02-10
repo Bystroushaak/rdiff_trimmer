@@ -22,6 +22,7 @@ dev = [
 ]
 
 [project.scripts]
+rdiff_trimmer = "rdiff_trimmer.trimmer:parse_args_and_call_main"
 unpack_rdiff_increments = "rdiff_trimmer.unpack_rdiff_increments:main"
 
 [build-system]
