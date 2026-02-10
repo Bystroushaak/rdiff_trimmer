@@ -1,5 +1,2 @@
-# -*- coding: utf-8 -*-
-from .trimmer import main
-
-from .rdiff_api import RdiffAPI
-from .rdiff_api import Increment
+from rdiff_trimmer.rdiff_api import RdiffAPI
+from rdiff_trimmer.rdiff_api import Increment

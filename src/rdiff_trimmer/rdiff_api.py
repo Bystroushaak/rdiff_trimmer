@@ -5,7 +5,7 @@ from tempfile import mkdtemp
 import sh
 
 
-class Increment(object):
+class Increment:
     def __init__(self, timestamp):
         self.timestamp = timestamp
 
@@ -15,7 +15,7 @@ class Increment(object):
         return Increment(timestamp)
 
 
-class RdiffAPI(object):
+class RdiffAPI:
     def __init__(self, rsync_dir, tmp_dir=None, disable_compression=False):
         self.rsync_dir = rsync_dir
 
@@ -30,8 +30,9 @@ class RdiffAPI(object):
     def yield_increments(self):
         increments = sh.rdiff_backup("--parsable-output", "-l", self.rsync_dir)
 
-        for increment_line in increments:
-            yield Increment.from_string(increment_line)
+        for increment_line in increments.strip().splitlines():
+            if increment_line.strip():
+                yield Increment.from_string(increment_line)
 
     def restore(self, out_dir, time):
         sh.rdiff_backup("-r", time, self.rsync_dir, out_dir)

@@ -6,8 +6,8 @@ import argparse
 import datetime
 from collections import defaultdict
 
-from rdiff_api import RdiffAPI
-from rdiff_api import Increment
+from rdiff_trimmer.rdiff_api import RdiffAPI
+from rdiff_trimmer.rdiff_api import Increment
 
 
 def remove_even(rsync_dir, out_dir, disable_compression=False):
