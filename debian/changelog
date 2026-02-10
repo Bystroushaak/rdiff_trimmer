@@ -1,3 +1,11 @@
+rdiff-trimmer (0.4.0) stable; urgency=medium
+
+  * Rewritten to python3.
+  * Rewritten to use uv instead of setup.py.
+  * Fixed all the things that broke since 2018. 
+
+ -- Bystroushaak <bystrousak@kitakitsune.org>  Tue, 10 Feb 2026 13:08:00 +0100
+
 rdiff-trimmer (0.3.1) stable; urgency=medium
 
   * Fixed import path in `unpack_rdiff_increments` script.
