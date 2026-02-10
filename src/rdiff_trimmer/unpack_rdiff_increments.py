@@ -1,12 +1,8 @@
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
 import os
 import sys
 import os.path
 import argparse
 
-# don't try to import rdiff_trimmer as a script, but a module
-sys.path = [x for x in sys.path if x != "." and x != os.path.dirname(__file__)]
 from rdiff_trimmer.rdiff_api import RdiffAPI
 
 
@@ -24,7 +20,7 @@ def unpack_into(rdiff_path, out_dir_path):
         yield inc.timestamp, inc_path
 
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-o",
@@ -44,4 +40,8 @@ if __name__ == '__main__':
         sys.exit(1)
 
     for timestamp, out_path in unpack_into(args.in_path, args.out):
-        print out_path, "unpacked"
+        print(out_path, "unpacked")
+
+
+if __name__ == '__main__':
+    main()
