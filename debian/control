@@ -1,0 +1,13 @@
+Source: rdiff-trimmer
+Section: python
+Priority: extra
+Maintainer: Bystroushaak <bystrousak@kitakitsune.org>
+Build-Depends: debhelper (>= 9), python3, dh-virtualenv (>= 0.8), dh-python
+X-Python3-Version: >= 3.8
+Standards-Version: 3.9.5
+
+Package: rdiff-trimmer
+Architecture: all
+Pre-Depends: dpkg (>= 1.16.1), python, ${misc:Pre-Depends}
+Depends: ${python3:Depends}, python3-zmq
+Description: Get rid of the old rdiff-backup increments from your backups.
