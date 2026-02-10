@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 import os
 import os.path
 import sys
+import argparse
 
 import datetime
 from collections import defaultdict
@@ -39,7 +39,7 @@ def keep_one_for_each_month(rsync_dir, out_dir, all_from_last_3_months=True,
 
     last_from_each_month = {
         increments[-1]
-        for increments in month_tracker.itervalues()
+        for increments in month_tracker.values()
     }
 
     if all_from_last_3_months:
@@ -115,3 +115,54 @@ def main(args):
     else:
         sys.stderr.write("No action selected. Use --help for list.\n")
         sys.exit(1)
+
+
+def parse_args_and_call_main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-k",
+        "--keep-increments",
+        dest="list",
+        help="Keep only increments listed in this file."
+    )
+    parser.add_argument(
+        "-o",
+        "--one-for-each-month",
+        dest="each_month",
+        action="store_true",
+        help="Keep only one backup for each month."
+    )
+    parser.add_argument(
+        "-e",
+        "--remove-even",
+        action="store_true",
+        help="Remove even backups. Reduce number of backups to half."
+    )
+    parser.add_argument(
+        "-d",
+        "--disable-compression",
+        action="store_true",
+        help="Disable default gzip compression used by rdiff."
+    )
+    parser.add_argument(
+        "rsync_dir",
+        metavar="RSYNC_DIR",
+        help="Path to the rsync directory."
+    )
+    parser.add_argument(
+        "out_dir",
+        default=None,
+        nargs='?',
+        metavar="OUT_DIR",
+        help=(
+            "Path to the trimmed OUTPUT rsync directory. "
+            "Default `{{RSYNC_DIR}}_trimmed`."
+        )
+    )
+
+    args = parser.parse_args()
+    main(args)
+
+
+if __name__ == '__main__':
+    parse_args_and_call_main()
