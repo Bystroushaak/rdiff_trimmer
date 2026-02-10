@@ -1,5 +1,29 @@
-rdiff-trimmer (0.4.0) stable; urgency=medium
+rdiff-trimmer (0.3.1) stable; urgency=medium
 
-  * Created.
+  * Fixed import path in `unpack_rdiff_increments` script.
 
- -- Bystroushaak <bystrousak@kitakitsune.org>  Tue, 10 Feb 2026 07:55:45 +0100
+ -- Bystroushaak <bystrousak@kitakitsune.org>  Sat, 12 May 2018 23:11:06 +0100
+
+rdiff-trimmer (0.3.0) stable; urgency=medium
+
+  * Added script `unpack_rdiff_increments`.
+
+ -- Bystroushaak <bystrousak@kitakitsune.org>  Tue, 29 May 2018 21:41:21 +0100
+
+rdiff-trimmer (0.2.1) stable; urgency=medium
+
+  * Fixed bug in bad parsing of the output path with / at the end.
+
+ -- Bystroushaak <bystrousak@kitakitsune.org>  Sat, 12 May 2018 23:21:12 +0100
+
+rdiff-trimmer (0.2.0) stable; urgency=medium
+
+  * First working version released.
+
+ -- Bystroushaak <bystrousak@kitakitsune.org>  Sat, 12 May 2018 23:11:06 +0100
+
+rdiff-trimmer (0.1.0) stable; urgency=medium
+
+  * Project created.
+
+ -- Bystroushaak <bystrousak@kitakitsune.org>  Thu, 12 Apr 2018 22:30:06 +0100
