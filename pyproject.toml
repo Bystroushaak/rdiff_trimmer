@@ -1,0 +1,29 @@
+[project]
+name = "rdiff_trimmer"
+description = "Get rid of the old rdiff-backup increments from your backups."
+authors = [
+  {name = "Bystroushaak", email = "bystrousak@kitakitsune.org"},
+]
+
+license = "MIT"
+license-files = ["LICENSE.txt"]
+
+version = "0.1.0"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "sh>=2.2.2",
+]
+url = "https://github.com/Bystroushaak/rdiff_trimmer"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
+
+#[project.scripts]
+#pip_repo = "rdiff_trimmer.main:main"
+
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
