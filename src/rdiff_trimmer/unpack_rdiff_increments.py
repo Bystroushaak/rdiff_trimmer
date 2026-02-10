@@ -26,12 +26,12 @@ def main():
         "-o",
         "--out",
         required=True,
-        help="Output directory where the increments will be unpacked."
+        help="Output directory where the increments will be unpacked.",
     )
     parser.add_argument(
         "in_path",
         metavar="RDIFF_PATH",
-        help="Path to the directory with rdiff increments."
+        help="Path to the directory with rdiff increments.",
     )
     args = parser.parse_args()
 
@@ -43,5 +43,5 @@ def main():
         print(out_path, "unpacked")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

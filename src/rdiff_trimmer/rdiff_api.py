@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 from shutil import rmtree
 from tempfile import mkdtemp
@@ -50,14 +49,13 @@ class RdiffAPI(object):
 
         sh.rdiff_backup(*options)
 
-    def restore_into(self, out_dir, increments_to_keep,
-                     disable_compression=False):
+    def restore_into(self, out_dir, increments_to_keep, disable_compression=False):
         out_rsync = RdiffAPI(out_dir, disable_compression=disable_compression)
         for increment in sorted(increments_to_keep, key=lambda x: x.timestamp):
             rmtree(self._tmp_dir)
             os.mkdir(self._tmp_dir)
 
-            print "Restoring", increment.timestamp
+            print("Restoring", increment.timestamp)
 
             self.restore(self._tmp_dir, increment.timestamp)
             out_rsync.add_increment(self._tmp_dir, increment.timestamp)

@@ -14,33 +14,28 @@ def remove_even(rsync_dir, out_dir, disable_compression=False):
     rsync = RdiffAPI(rsync_dir)
 
     odd_increments = [
-        increment for cnt, increment in enumerate(rsync.yield_increments())
+        increment
+        for cnt, increment in enumerate(rsync.yield_increments())
         if ((cnt + 1) % 2) != 0
     ]
 
-    rsync.restore_into(
-        out_dir,
-        odd_increments,
-        disable_compression=disable_compression
-    )
+    rsync.restore_into(out_dir, odd_increments, disable_compression=disable_compression)
 
 
-def keep_one_for_each_month(rsync_dir, out_dir, all_from_last_3_months=True,
-                            disable_compression=False):
+def keep_one_for_each_month(
+    rsync_dir, out_dir, all_from_last_3_months=True, disable_compression=False
+):
     rsync = RdiffAPI(rsync_dir)
 
     def get_month_date(increment):
         date = datetime.datetime.fromtimestamp(increment.timestamp)
-        return date.strftime('%Y-%m')
+        return date.strftime("%Y-%m")
 
     month_tracker = defaultdict(list)
     for increment in rsync.yield_increments():
         month_tracker[get_month_date(increment)].append(increment)
 
-    last_from_each_month = {
-        increments[-1]
-        for increments in month_tracker.values()
-    }
+    last_from_each_month = {increments[-1] for increments in month_tracker.values()}
 
     if all_from_last_3_months:
         all_months = sorted(month_tracker.keys())
@@ -53,9 +48,7 @@ def keep_one_for_each_month(rsync_dir, out_dir, all_from_last_3_months=True,
             last_from_each_month.update(month_tracker[all_months[-3]])
 
     rsync.restore_into(
-        out_dir,
-        sorted(last_from_each_month),
-        disable_compression=disable_compression
+        out_dir, sorted(last_from_each_month), disable_compression=disable_compression
     )
 
 
@@ -94,11 +87,7 @@ def main(args):
     if args.remove_even:
         remove_even(args.rsync_dir, args.out_dir, args.disable_compression)
     elif args.each_month:
-        keep_one_for_each_month(
-            args.rsync_dir,
-            args.out_dir,
-            args.disable_compression
-        )
+        keep_one_for_each_month(args.rsync_dir, args.out_dir, args.disable_compression)
     elif args.list:
         with open(args.list) as f:
             increments_to_keep = [
@@ -110,7 +99,7 @@ def main(args):
         rdiff.restore_into(
             args.out_dir,
             increments_to_keep,
-            disable_compression=args.disable_compression
+            disable_compression=args.disable_compression,
         )
     else:
         sys.stderr.write("No action selected. Use --help for list.\n")
@@ -123,46 +112,44 @@ def parse_args_and_call_main():
         "-k",
         "--keep-increments",
         dest="list",
-        help="Keep only increments listed in this file."
+        help="Keep only increments listed in this file.",
     )
     parser.add_argument(
         "-o",
         "--one-for-each-month",
         dest="each_month",
         action="store_true",
-        help="Keep only one backup for each month."
+        help="Keep only one backup for each month.",
     )
     parser.add_argument(
         "-e",
         "--remove-even",
         action="store_true",
-        help="Remove even backups. Reduce number of backups to half."
+        help="Remove even backups. Reduce number of backups to half.",
     )
     parser.add_argument(
         "-d",
         "--disable-compression",
         action="store_true",
-        help="Disable default gzip compression used by rdiff."
+        help="Disable default gzip compression used by rdiff.",
     )
     parser.add_argument(
-        "rsync_dir",
-        metavar="RSYNC_DIR",
-        help="Path to the rsync directory."
+        "rsync_dir", metavar="RSYNC_DIR", help="Path to the rsync directory."
     )
     parser.add_argument(
         "out_dir",
         default=None,
-        nargs='?',
+        nargs="?",
         metavar="OUT_DIR",
         help=(
             "Path to the trimmed OUTPUT rsync directory. "
             "Default `{{RSYNC_DIR}}_trimmed`."
-        )
+        ),
     )
 
     args = parser.parse_args()
     main(args)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parse_args_and_call_main()
