@@ -1,0 +1,18 @@
+StartTime 1770828942.00 (Wed Feb 11 17:55:42 2026)
+EndTime 1770828942.82 (Wed Feb 11 17:55:42 2026)
+ElapsedTime 0.82 (0.82 seconds)
+SourceFiles 4
+SourceFileSize 51 (51 bytes)
+MirrorFiles 3
+MirrorFileSize 48 (48 bytes)
+NewFiles 1
+NewFileSize 3 (3 bytes)
+DeletedFiles 0
+DeletedFileSize 0 (0 bytes)
+ChangedFiles 3
+ChangedSourceSize 48 (48 bytes)
+ChangedMirrorSize 48 (48 bytes)
+IncrementFiles 4
+IncrementFileSize 143 (143 bytes)
+TotalDestinationSizeChange 146 (146 bytes)
+Errors 0

@@ -3,6 +3,8 @@ import os.path
 
 from pytest import fixture
 
+from rdiff_trimmer.trimmer import keep_one_for_each_month
+
 from rdiff_trimmer.rdiff_api import RdiffAPI
 from rdiff_trimmer.rdiff_api import Increment
 
@@ -31,7 +33,7 @@ def test_increment_from_string():
 def test_yield_increments(test_data_rdiff_api):
     increments = list(test_data_rdiff_api.yield_increments())
 
-    assert len(increments) == 3
+    assert len(increments) == 4
 
     assert int(increments[1].timestamp) == 1524342591
     assert int(increments[2].timestamp) == 1524342605
@@ -50,3 +52,11 @@ def test_restore_into(test_data_rdiff_api, tmpdir_rdiff_api):
 
     assert os.path.exists(os.path.join(tmp_dir, "content"))
     assert not os.path.exists(os.path.join(tmp_dir, "and_more_content"))
+
+
+def test_keep_one_for_each_month(test_data_rdiff_api, tmp_path):
+    keep_one_for_each_month(test_data_rdiff_api.rsync_dir, tmp_path, False)
+
+    trimmed = RdiffAPI(tmp_path)
+    kept_increments = list(trimmed.yield_increments())
+    assert len(kept_increments) == 2
