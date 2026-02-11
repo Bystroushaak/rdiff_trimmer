@@ -48,14 +48,18 @@ class RdiffAPI:
             rmtree(self._tmp_dir)
 
     def yield_increments(self):
-        increments = sh.rdiff_backup("--parsable-output", "-l", self.rsync_dir)
+        increments = rdiff_backup(
+            "--parsable-output",
+            "-l",
+            self.rsync_dir,
+        )
 
         for increment_line in increments.strip().splitlines():
             if increment_line.strip():
                 yield Increment.from_string(increment_line)
 
     def restore(self, out_dir, time):
-        sh.rdiff_backup("-r", time, self.rsync_dir, out_dir)
+        rdiff_backup("-r", time, "--current-time", time, str(self.rsync_dir), out_dir)
 
     def add_increment(self, from_dir, timestamp=0):
         options = self._options[:]
@@ -66,9 +70,9 @@ class RdiffAPI:
             options.append("--no-compression")
 
         options.append(from_dir)
-        options.append(self.rsync_dir)
+        options.append(str(self.rsync_dir))
 
-        sh.rdiff_backup(*options)
+        rdiff_backup(*options)
 
     def restore_into(self, out_dir, increments_to_keep, disable_compression=False):
         out_rsync = RdiffAPI(out_dir, disable_compression=disable_compression)
