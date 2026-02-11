@@ -1,8 +1,17 @@
+rdiff-trimmer (0.4.1) stable; urgency=medium
+
+  * Fixed test fixture bug causing "Time of Last backup is not in the past" error.
+  * Restored corrupted test data (current_mirror timestamp).
+  * Converted Increment class to NamedTuple with proper comparison support.
+  * Added type hints to RdiffAPI class.
+
+ -- Bystroushaak <bystrousak@kitakitsune.org>  Wed, 11 Feb 2026 20:12:40 +0100
+
 rdiff-trimmer (0.4.0) stable; urgency=medium
 
   * Rewritten to python3.
   * Rewritten to use uv instead of setup.py.
-  * Fixed all the things that broke since 2018. 
+  * Fixed all the things that broke since 2018.
 
  -- Bystroushaak <bystrousak@kitakitsune.org>  Tue, 10 Feb 2026 13:08:00 +0100
 
