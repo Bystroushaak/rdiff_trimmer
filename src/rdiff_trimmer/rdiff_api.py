@@ -43,6 +43,10 @@ class RdiffAPI:
 
         self._options = []
 
+    def __del__(self):
+        if os.path.exists(self._tmp_dir):
+            rmtree(self._tmp_dir)
+
     def yield_increments(self):
         increments = sh.rdiff_backup("--parsable-output", "-l", self.rsync_dir)
 
