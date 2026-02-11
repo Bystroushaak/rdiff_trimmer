@@ -1,5 +1,6 @@
 import os
 import os.path
+import shutil
 
 from pytest import fixture
 
@@ -10,16 +11,20 @@ from rdiff_trimmer.rdiff_api import Increment
 
 
 DIR_PATH = os.path.abspath(os.path.dirname(__file__))
+DIR_PATH = os.path.join(DIR_PATH, "test_data")
 
 
 @fixture
-def test_data_rdiff_api():
-    return RdiffAPI(os.path.join(DIR_PATH, "test_data"))
+def test_data_rdiff_api(tmp_path):
+    shutil.copytree(DIR_PATH, tmp_path, dirs_exist_ok=True)
+    return RdiffAPI(tmp_path)
 
 
 @fixture
 def tmpdir_rdiff_api(tmp_path):
-    return RdiffAPI(tmp_path)
+    tmpdir = tmp_path / "output"
+    tmpdir.mkdir()
+    return RdiffAPI(tmpdir)
 
 
 def test_increment_from_string():
