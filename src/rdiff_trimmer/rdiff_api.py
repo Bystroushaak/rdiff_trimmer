@@ -1,6 +1,7 @@
 import os
 import sys
 from shutil import rmtree
+from typing import NamedTuple
 from tempfile import mkdtemp
 
 import sh
@@ -21,12 +22,11 @@ else:
     rdiff_backup = sh.rdiff_backup.bake()
 
 
-class Increment:
-    def __init__(self, timestamp):
-        self.timestamp = timestamp
+class Increment(NamedTuple):
+    timestamp: int
 
     @staticmethod
-    def from_string(line):
+    def from_string(line: str) -> "Increment":
         timestamp = int(line.strip().split()[0])
         return Increment(timestamp)
 

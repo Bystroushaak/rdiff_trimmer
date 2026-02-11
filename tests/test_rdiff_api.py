@@ -60,8 +60,12 @@ def test_restore_into(test_data_rdiff_api, tmpdir_rdiff_api):
 
 
 def test_keep_one_for_each_month(test_data_rdiff_api, tmp_path):
-    keep_one_for_each_month(test_data_rdiff_api.rsync_dir, tmp_path, False)
+    tmpdir = tmp_path / "monthly"
+    keep_one_for_each_month(test_data_rdiff_api.rsync_dir, tmpdir, False)
 
-    trimmed = RdiffAPI(tmp_path)
+    trimmed = RdiffAPI(tmpdir)
     kept_increments = list(trimmed.yield_increments())
+
     assert len(kept_increments) == 2
+    assert kept_increments[0].timestamp == 1524342605
+    assert kept_increments[1].timestamp == 1770828942
