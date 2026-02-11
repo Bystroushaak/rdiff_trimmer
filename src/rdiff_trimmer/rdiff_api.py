@@ -1,7 +1,10 @@
 import os
 import sys
 from shutil import rmtree
+from typing import Iterable
+from typing import Iterator
 from typing import NamedTuple
+from pathlib import Path
 from tempfile import mkdtemp
 
 import sh
@@ -32,7 +35,12 @@ class Increment(NamedTuple):
 
 
 class RdiffAPI:
-    def __init__(self, rsync_dir, tmp_dir=None, disable_compression=False):
+    def __init__(
+        self,
+        rsync_dir: str | Path,
+        tmp_dir: str | Path | None = None,
+        disable_compression: bool = False,
+    ) -> None:
         self.rsync_dir = rsync_dir
 
         self._tmp_dir = tmp_dir
@@ -41,13 +49,13 @@ class RdiffAPI:
 
         self._disable_compression = disable_compression
 
-        self._options = []
+        self._options: list[str] = []
 
-    def __del__(self):
+    def __del__(self) -> None:
         if os.path.exists(self._tmp_dir):
             rmtree(self._tmp_dir)
 
-    def yield_increments(self):
+    def yield_increments(self) -> Iterator[Increment]:
         increments = rdiff_backup(
             "--parsable-output",
             "-l",
@@ -58,10 +66,10 @@ class RdiffAPI:
             if increment_line.strip():
                 yield Increment.from_string(increment_line)
 
-    def restore(self, out_dir, time):
+    def restore(self, out_dir: str | Path, time: int) -> None:
         rdiff_backup("-r", time, "--current-time", time, str(self.rsync_dir), out_dir)
 
-    def add_increment(self, from_dir, timestamp=0):
+    def add_increment(self, from_dir: str | Path, timestamp: int = 0) -> None:
         options = self._options[:]
         if timestamp != 0:
             options.extend(("--current-time", timestamp))
@@ -74,7 +82,12 @@ class RdiffAPI:
 
         rdiff_backup(*options)
 
-    def restore_into(self, out_dir, increments_to_keep, disable_compression=False):
+    def restore_into(
+        self,
+        out_dir: str | Path,
+        increments_to_keep: Iterable[Increment],
+        disable_compression: bool = False,
+    ) -> "RdiffAPI":
         out_rsync = RdiffAPI(out_dir, disable_compression=disable_compression)
         for increment in sorted(increments_to_keep, key=lambda x: x.timestamp):
             rmtree(self._tmp_dir)
