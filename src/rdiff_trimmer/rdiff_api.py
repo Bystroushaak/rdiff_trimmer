@@ -1,8 +1,24 @@
 import os
+import sys
 from shutil import rmtree
 from tempfile import mkdtemp
 
 import sh
+
+
+def _pydev_fix_fds_after_sh():
+    """
+    Fix for pycharm's debugger which is trying to monkeypatch stdin/out and that
+    is clashing with `sh` module.
+    """
+    sys.stdout = os.fdopen(1, "w", buffering=1, closefd=False)
+    sys.stderr = os.fdopen(2, "w", buffering=1, closefd=False)
+
+
+if os.getenv("PYCHARM_HOSTED") == "1":
+    rdiff_backup = sh.rdiff_backup.bake(_preexec_fn=_pydev_fix_fds_after_sh)
+else:
+    rdiff_backup = sh.rdiff_backup.bake()
 
 
 class Increment:
