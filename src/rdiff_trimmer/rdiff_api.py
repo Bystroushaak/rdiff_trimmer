@@ -64,7 +64,9 @@ class RdiffAPI:
 
         for increment_line in increments.strip().splitlines():
             if increment_line.strip():
-                yield Increment.from_string(increment_line)
+                inc = Increment.from_string(increment_line)
+                if inc.timestamp != -1:
+                    yield inc
 
     def restore(self, out_dir: str | Path, time: int) -> None:
         rdiff_backup("-r", time, "--current-time", time, str(self.rsync_dir), out_dir)

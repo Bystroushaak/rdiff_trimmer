@@ -8,6 +8,6 @@ Standards-Version: 3.9.5
 
 Package: rdiff-trimmer
 Architecture: all
-Pre-Depends: dpkg (>= 1.16.1), python, ${misc:Pre-Depends}
-Depends: ${python3:Depends}, python3-zmq
+Pre-Depends: dpkg (>= 1.16.1), python3, ${misc:Pre-Depends}
+Depends: ${python3:Depends}
 Description: Get rid of the old rdiff-backup increments from your backups.
